@@ -242,7 +242,7 @@ class AbstractProduct(models.Model):
         default=STANDALONE)
 
     upc = NullCharField(
-        _("UPC"), max_length=64, blank=True, null=True, unique=True,
+        _("UPC"), max_length=64, blank=True, null=True, unique=False,
         help_text=_("Universal Product Code (UPC) is an identifier for "
                     "a product which is not specific to a particular "
                     " supplier. Eg an ISBN for a book."))
