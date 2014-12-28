@@ -44,8 +44,7 @@ class AbstractProductClass(models.Model):
     Not necessarily equivalent to top-level categories but usually will be.
     """
     name = models.CharField(_('Name'), max_length=128)
-    slug = AutoSlugField(_('Slug'), max_length=128, unique=True,
-                         populate_from='name')
+    slug = AutoSlugField(_('Slug'), max_length=128, populate_from='name')
 
     #: Some product type don't require shipping (eg digital products) - we use
     #: this field to take some shortcuts in the checkout.
