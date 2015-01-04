@@ -10,10 +10,11 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-from oscar import get_version
-
 PROJECT_DIR = os.path.dirname(__file__)
 PY3 = sys.version_info >= (3, 0)
+
+sys.path.append(os.path.join(PROJECT_DIR, 'src'))
+from oscar import get_version
 
 # Change to the current directory to solve an issue installing Oscar on the
 # Vagrant machine.
@@ -30,12 +31,13 @@ setup(name='django-oscar',
       keywords="E-commerce, Django, domain-driven",
       license='BSD',
       platforms=['linux'],
-      packages=find_packages(exclude=["sandbox*", "tests*"]),
+      package_dir={'': 'src'},
+      packages=find_packages('src'),
       include_package_data=True,
       install_requires=[
           'django>=1.6.8,<1.8',
           # PIL is required for image fields, Pillow is the "friendly" PIL fork
-          'pillow>=1.7.8,<2.5',
+          'pillow>=1.7.8,<=2.7',
           # We use the ModelFormSetView from django-extra-views for the basket
           # page. 0.6.5 pins version of six, which causes issues:
           # https://github.com/AndrewIngram/django-extra-views/pull/85
@@ -45,7 +47,7 @@ setup(name='django-oscar',
           # Treebeard is used for categories
           'django-treebeard==2.0',
           # Sorl is used as the default thumbnailer
-          'sorl-thumbnail==11.12.1b',
+          'sorl-thumbnail>=11.12.1b,<=12.2',
           # Babel is used for currency formatting
           'Babel>=1.0,<1.4',
           # Oscar's default templates use compressor (but you can override
@@ -63,10 +65,13 @@ setup(name='django-oscar',
           'factory-boy>=2.4.1,<2.5',
           # Used for automatically building larger HTML tables
           'django-tables2>=0.15.0,<0.16',
+          # Used for manipulating form field attributes in templates (eg: add
+          # a css class)
+          'django-widget-tweaks>=1.3,<1.4',
       ],
       # See http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-          'Development Status :: 4 - Beta',
+          'Development Status :: 5 - Production/Stable',
           'Environment :: Web Environment',
           'Framework :: Django',
           'Intended Audience :: Developers',

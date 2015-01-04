@@ -2,8 +2,7 @@
 .PHONY: install sandbox geoip demo docs coverage lint travis messages compiledmessages css clean preflight make_sandbox make_demo
 
 install:
-	pip install -r requirements.txt
-	python setup.py develop
+	pip install -e . -r requirements.txt
 
 build_sandbox:
 	# Remove media
@@ -99,9 +98,9 @@ compiledmessages:
 
 css:
 	# Compile CSS files from LESS
-	lessc --source-map --source-map-less-inline oscar/static/oscar/less/styles.less oscar/static/oscar/css/styles.css
-	lessc --source-map --source-map-less-inline oscar/static/oscar/less/responsive.less oscar/static/oscar/css/responsive.css
-	lessc --source-map --source-map-less-inline oscar/static/oscar/less/dashboard.less oscar/static/oscar/css/dashboard.css
+	lessc --source-map --source-map-less-inline src/oscar/static/oscar/less/styles.less oscar/static/oscar/css/styles.css
+	lessc --source-map --source-map-less-inline src/oscar/static/oscar/less/responsive.less oscar/static/oscar/css/responsive.css
+	lessc --source-map --source-map-less-inline src/oscar/static/oscar/less/dashboard.less oscar/static/oscar/css/dashboard.css
 	# Compile CSS for demo site
 	lessc --source-map --source-map-less-inline sites/demo/static/demo/less/styles.less sites/demo/static/demo/css/styles.css
 	lessc --source-map --source-map-less-inline sites/demo/static/demo/less/responsive.less sites/demo/static/demo/css/responsive.css
@@ -119,5 +118,5 @@ todo:
 	# Look for areas of the code that need updating when some event has taken place (like 
 	# Oscar dropping support for a Django version)
 	-grep -rnH TODO *.txt
-	-grep -rnH TODO oscar/apps/
-	-grep -rnH "django.VERSION" oscar/apps
+	-grep -rnH TODO src/oscar/apps/
+	-grep -rnH "django.VERSION" src/oscar/apps

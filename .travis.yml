@@ -1,3 +1,12 @@
+# Use the newer container-based infrastructure
+# http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+sudo: false
+
+# Cache pip downloads
+cache:
+    directories:
+      - $HOME/.pip-cache/
+
 language: python
 
 python:
@@ -14,8 +23,7 @@ env:
         - DJANGO=Django==1.7.1
 
 install:
-    - make install
-    - easy_install $DJANGO
+    - pip install -e . -r requirements.txt $DJANGO --download-cache $HOME/.pip-cache
 
 before_script:
     # Create testing databases for running migrations against
@@ -30,5 +38,4 @@ script:
 
 after_success:
     - coveralls
-    # TODO: Re-enable once 0.8 final is released
-    # - ./transifex.sh
+    - ./transifex.sh
