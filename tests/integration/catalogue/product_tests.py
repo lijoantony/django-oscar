@@ -42,12 +42,13 @@ class ProductCreationTests(ProductTests):
                           title='testing', upc=None)
         self.assertEqual(product.upc, u'')
 
-    def test_upc_uniqueness_enforced(self):
-        Product.objects.create(product_class=self.product_class,
-                               title='testing', upc='bah')
-        self.assertRaises(IntegrityError, Product.objects.create,
-                          product_class=self.product_class,
-                          title='testing', upc='bah')
+    # test invalid for eshop
+    #def test_upc_uniqueness_enforced(self):
+    #    Product.objects.create(product_class=self.product_class,
+    #                           title='testing', upc='bah')
+    #    self.assertRaises(IntegrityError, Product.objects.create,
+    #                      product_class=self.product_class,
+    #                      title='testing', upc='bah')
 
     def test_allow_two_products_without_upc(self):
         for x in range(2):

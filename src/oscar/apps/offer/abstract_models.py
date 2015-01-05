@@ -40,10 +40,9 @@ class AbstractConditionalOffer(models.Model):
     A conditional offer (eg buy 1, get 10% off)
     """
     name = models.CharField(
-        _("Name"), max_length=128, unique=True,
-        help_text=_("This is displayed within the customer's basket"))
+        _("Name"), max_length=128, help_text=_("This is displayed within the customer's basket"))
     slug = fields.AutoSlugField(
-        _("Slug"), max_length=128, unique=True, populate_from='name')
+        _("Slug"), max_length=128, populate_from='name')
     description = models.TextField(_("Description"), blank=True,
                                    help_text=_("This is displayed on the offer"
                                                " browsing page"))
@@ -472,9 +471,9 @@ class AbstractRange(models.Model):
     Ranges only support adding parent or stand-alone products. Offers will
     consider child products automatically.
     """
-    name = models.CharField(_("Name"), max_length=128, unique=True)
+    name = models.CharField(_("Name"), max_length=128)
     slug = fields.AutoSlugField(
-        _("Slug"), max_length=128, unique=True, populate_from="name")
+        _("Slug"), max_length=128, populate_from="name")
 
     description = models.TextField(blank=True)
 

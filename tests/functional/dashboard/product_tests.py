@@ -89,19 +89,20 @@ class TestCreateParentProduct(ProductWebTest):
         self.assertIsRedirect(response)
         self.assertEqual(Product.objects.count(), 1)
 
-    def test_doesnt_allow_duplicate_upc(self):
-        G(Product, parent=None, upc="12345")
-        category = G(Category)
-        self.assertTrue(Product.objects.get(upc="12345"))
+    # test invalid for eshop
+    #def test_doesnt_allow_duplicate_upc(self):
+    #    G(Product, parent=None, upc="12345")
+    #    category = G(Category)
+    #    self.assertTrue(Product.objects.get(upc="12345"))
 
-        response = self.submit(title="Nice T-Shirt", category=category,
-                               upc="12345")
+    #    response = self.submit(title="Nice T-Shirt", category=category,
+    #                           upc="12345")
 
-        self.assertEqual(Product.objects.count(), 1)
-        self.assertNotEqual(Product.objects.get(upc='12345').title,
-                             'Nice T-Shirt')
-        self.assertContains(response,
-                            "Product with this UPC already exists.")
+    #    self.assertEqual(Product.objects.count(), 1)
+    #    self.assertNotEqual(Product.objects.get(upc='12345').title,
+    #                         'Nice T-Shirt')
+    #    self.assertContains(response,
+    #                        "Product with this UPC already exists.")
 
 
 class TestCreateChildProduct(ProductWebTest):
